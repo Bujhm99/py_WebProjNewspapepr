@@ -1,0 +1,14 @@
+[flake8]
+inline-quotes = "
+ignore = E203, E266, W503, N807, N818, F401, E126
+max-line-length = 79
+max-complexity = 18
+select = B,C,E,F,W,T4,B9,Q0,N8,VNE
+exclude =
+    **migrations
+    wsgi.py
+    asgi.py
+    venv
+    cur2.py
+    cur.py
+    templates/old

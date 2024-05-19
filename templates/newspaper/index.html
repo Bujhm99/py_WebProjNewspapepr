@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="display-4 text-center my-5">Welcome Black`s Newspaper</h1>
+        <p class="lead text-center">You are, what you read!</p>
+
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>Articles:</strong> {{ num_articles }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>Redactors:</strong> {{ num_redactors }}</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h3 class="card-title"><strong>Topics:</strong> {{ num_topics }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-center my-5">You have visited this page
+            {{ num_visits }} time{{ num_visits|pluralize }}.
+        </p>
+    </div>
+{% endblock %}

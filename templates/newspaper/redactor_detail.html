@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">
+      Username: {{ redactor.username }}
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a href="{% url 'newspaper:redactor-delete' pk=redactor.id %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'newspaper:redactor-update' pk=redactor.id %}" class="btn btn-secondary">Update</a>
+      </div>
+    </h1>
+
+    <div class="card">
+      <div class="card-body">
+        <p><strong>First name:</strong> {{ redactor.first_name }}</p>
+        <p><strong>Last name:</strong> {{ redactor.last_name }}</p>
+        <p><strong>Years of experience:</strong> {{ redactor.years_of_experience }}</p>
+        <p><strong>Is staff:</strong> {{ redactor.is_staff }}</p>
+      </div>
+    </div>
+
+    <div class="mt-5">
+      <h4>Articles</h4>
+
+      {% for article in articles_data %}
+        <div class="card mt-3">
+          <div class="card-body">
+            <p><strong>Title:</strong> {{ article.title }}</p>
+            <p><strong>Topic:</strong> {{ article.topic.name }}</p>
+            <p class="text-muted"><strong>Id:</strong> {{article.id}}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p class="mt-3">No articles!</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

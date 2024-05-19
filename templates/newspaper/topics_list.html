@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">Topic List</h1>
+    <div class="text-center mb-4">
+      <a href="{% url 'newspaper:topic-create' %}" class="btn btn-dark">Create</a>
+    </div>
+    <form method="get" action="" class="form-inline justify-content-center mb-4">
+      {{ search_form|crispy }}
+      <input class="btn btn-secondary ml-2" type="submit" value="Search">
+    </form>
+    {% if topic_list %}
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+
+            <th>Name</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for topic in topic_list %}
+            <tr>
+
+              <td>{{ topic.name }}</td>
+              <td><a href="{% url 'newspaper:topic-update' pk=topic.id %}" class="btn btn-secondary">Update</a></td>
+              <td><a href="{% url 'newspaper:topic-delete' pk=topic.id %}" class="btn btn-dark">Delete</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        There are no topics.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

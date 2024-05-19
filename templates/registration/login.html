@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">Login</h1>
+
+    {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        Your username and password didn't match. Please try again.
+      </div>
+    {% endif %}
+
+    {% if next %}
+      <div class="alert alert-info" role="alert">
+        Please login to see this page.
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}" class="mt-4">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="text-center mt-4">
+        <input type="submit" value="Login" class="btn btn-secondary">
+      </div>
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+{% endblock %}

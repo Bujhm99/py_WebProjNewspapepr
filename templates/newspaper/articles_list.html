@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">Articles List</h1>
+    <div class="text-center mb-4">
+      <a href="{% url 'newspaper:article-create' %}" class="btn btn-dark">Create</a>
+    </div>
+    <form title="<.> dot - for and search, <,> comma - for or search, <-> minus - for exclusion from search"
+          method="get" action="" class="form-inline justify-content-center mb-4">
+      {{ search_form|crispy }}
+      <input class="btn btn-secondary ml-2" type="submit" value="Search">
+    </form>
+    {% if article_list %}
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Topic</th>
+            <th>Publish date</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for article in article_list %}
+            <tr>
+              <td>{{ article.id }}</td>
+              <td>{{ article.title }}</td>
+              <td>{{ article.topic.name }}</td>
+              <td>{{ article.published_date }}</td>
+              <td><a href="{% url "newspaper:article-detail" rand_num=rand_num pk=article.id %}" class="btn btn-secondary">View</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        There are no articles.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

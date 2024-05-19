@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Delete Topic </h1>
+  <p>Are you sure to delete {{ topic.name }}.</p>
+
+  {% block Buttons %}
+        {% include "includes/confirm_buttons.html" %}
+  {% endblock %}
+
+{% endblock %}

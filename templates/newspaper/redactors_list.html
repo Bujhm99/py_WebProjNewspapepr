@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">Redactors List</h1>
+    <div class="text-center mb-4">
+      <a href="{% url 'newspaper:redactor-create' %}" class="btn btn-dark">Create</a>
+    </div>
+    <form method="get" action="" class="form-inline justify-content-center mb-4">
+      {{ search_form|crispy }}
+      <input class="btn btn-secondary ml-2" type="submit" value="Search">
+    </form>
+    {% if redactor_list %}
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+
+            <th>Username</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Years of experience</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for redactor in redactor_list %}
+            <tr>
+
+              <td><a href="{{ redactor.get_absolute_url }}" class="grey-link">{{ redactor.username }} {% if user == redactor %} (Me){% endif %}</a></td>
+              <td>{{ redactor.first_name }}</td>
+              <td>{{ redactor.last_name }}</td>
+              <td>{{ redactor.years_of_experience }}</td>
+              <td>
+                <a href="{% url 'newspaper:redactor-detail' pk=redactor.id %}" class="btn btn-secondary">View</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        There are no redactors.
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

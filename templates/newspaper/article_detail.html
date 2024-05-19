@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4 text-center my-5">{{ article.title }}</h1>
+    <div class="text-center mb-4">
+      <a href="{% url 'newspaper:article-delete' pk=article.id %}" class="btn btn-danger">Delete</a>
+      <a href="{% url 'newspaper:article-update' pk=article.id %}" class="btn btn-secondary ml-2">Update</a>
+    </div>
+    <p class="lead text-center">Topic: ({{ article.topic.name }})</p>
+    <p class="text-center">Published date: {{ article.published_date }}</p>
+    <p class="text-center">{{ article.content }}</p>
+    <hr>
+    <div class="add_but_left">
+
+      <a href="{% url "newspaper:article-detail" rand_num=rand_num pk=prev_article.pk %}" class="btn btn-secondary">Prev</a>
+    </div>
+    <div class="add_but_right">
+      <a href="{% url "newspaper:article-detail" rand_num=rand_num pk=next_article.pk %}" class="btn btn-secondary">Next</a>
+
+    </div>
+    <div class="text-center mb-4">
+      {% if user in redactors_list %}
+        <a href="{% url 'newspaper:toggle-article-assign' rand_num=rand_num pk=article.id %}" class="btn btn-danger">Delete me from this article</a>
+      {% else %}
+        <a href="{% url 'newspaper:toggle-article-assign' rand_num=rand_num pk=article.id %}" class="btn btn-secondary">Assign me to this article</a>
+      {% endif %}
+    </div>
+    <h5 class="text-center">Redactors</h5>
+    <ul class="list-group critic-list">
+      {% for redactor in redactors_list %}
+        <li class="list-group-item">{{ redactor.username }} ({{ redactor.first_name }} {{ redactor.last_name }})</li>
+      {% empty %}
+        <li class="list-group-item">No redactors</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
