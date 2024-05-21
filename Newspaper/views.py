@@ -78,11 +78,13 @@ class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
 class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
     model = User_model
     form_class = RedactorCreationForm
+    template_name = "newspaper/redactor_form.html"
 
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = User_model
     form_class = RedactorUpdateForm
+    template_name = "newspaper/redactor_form.html"
 
 
 class RedactorDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -125,6 +127,7 @@ class ArticlesListView(LoginRequiredMixin, generic.ListView):
 class ArticleDetailView(LoginRequiredMixin, generic.DetailView):
     model = Article
     queryset = Article.objects.select_related("topic")
+    template_name = "newspaper/article_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
