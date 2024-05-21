@@ -19,7 +19,7 @@ You can read the articles in the All Articles section. You can select the topic 
 * Using multiple search schemes when working with articles.
 
 ## Check it out.
-[render]()
+[Site in render](https://py-webprojnewspapepr.onrender.com)
 
 ## Demo
 ![Website interface](HomePage.png)
@@ -28,3 +28,6 @@ You can read the articles in the All Articles section. You can select the topic 
 [json file](db_data.json)
 
 Use command python manage.py loaddata db_data.json
+Test user:
+    Username: admin
+    Password: 1
