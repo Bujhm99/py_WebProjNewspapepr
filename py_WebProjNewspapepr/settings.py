@@ -27,6 +27,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-8ovil3xu6=eaoq
 
 # SECURITY WARNING: don"t run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != False
+# DEBUG =False
 
 ALLOWED_HOSTS = ["127.0.0.1"]
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
