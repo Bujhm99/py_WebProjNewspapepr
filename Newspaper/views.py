@@ -64,6 +64,7 @@ class RedactorsListView(LoginRequiredMixin, generic.ListView):
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = User_model
+    template_name = "newspaper/redactor_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
