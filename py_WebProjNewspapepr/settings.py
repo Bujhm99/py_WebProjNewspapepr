@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-8ovil3xu6=eaoq
 DEBUG = os.environ.get("DJANGO_DEBUG", "") != False
 # DEBUG =False
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "py-webprojnewspapepr.onrender.com"]
 
 
 # Application definition
