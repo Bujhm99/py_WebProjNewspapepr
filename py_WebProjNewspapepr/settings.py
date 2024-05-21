@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 import os
+import dj_database_url
+from os import getenv
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,13 +80,34 @@ WSGI_APPLICATION = "py_WebProjNewspapepr.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
+load_dotenv(BASE_DIR/".env")
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': getenv('PGDATABASE'),
+    'USER': getenv('PGUSER'),
+    'PASSWORD': getenv('PGPASSWORD'),
+    'HOST': getenv('PGHOST'),
+    'PORT': getenv('PGPORT', 5432),
+    'OPTIONS': {
+      'sslmode': 'require',
+    },
+  }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+# DATABASE_URL = "postgresql://py_WebProjNewspapepr_neondb_owner:JsFaYWdt34Mb@ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech/py_WebProjNewspapepr_neondb?sslmode=require"
+# DATABASE_URL = "jdbc:postgresql://ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech:5432/py_WebProjNewspapepr_neondb"
+
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES["default"].update(db_from_env)
+
+# DATABASE_URL = "postgresql://py_WebProjNewspapepr_neondb_owner:JsFaYWdt34Mb@ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech/py_WebProjNewspapepr_neondb?sslmode=require"
 
 
 # Password validation
