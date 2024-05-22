@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "django-insecure-8ovil3xu6=eaoqd#-#&ricv159poh5_lgm*)-dfcjqe=yc")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-# DEBUG = os.environ.get("DJANGO_DEBUG", " ") != False
+
 DEBUG = False
 
 ALLOWED_HOSTS = ["127.0.0.1", "py-webprojnewspapepr.onrender.com"]
@@ -96,20 +96,6 @@ DATABASES = {
     },
   }
 }
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-# DATABASE_URL = "postgresql://py_WebProjNewspapepr_neondb_owner:JsFaYWdt34Mb@ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech/py_WebProjNewspapepr_neondb?sslmode=require"
-# DATABASE_URL = "jdbc:postgresql://ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech:5432/py_WebProjNewspapepr_neondb"
-
-# db_from_env = dj_database_url.config(conn_max_age=500)
-# DATABASES["default"].update(db_from_env)
-
-# DATABASE_URL = "postgresql://py_WebProjNewspapepr_neondb_owner:JsFaYWdt34Mb@ep-muddy-cloud-a2h16f5m.eu-central-1.aws.neon.tech/py_WebProjNewspapepr_neondb?sslmode=require"
 
 
 # Password validation
