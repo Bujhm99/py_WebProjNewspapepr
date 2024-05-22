@@ -42,11 +42,13 @@ class PrivateTopicViewTest(TestCase):
         self.assertRedirects(response, reverse("newspaper:topics-list"))
 
     def test_topic_update_get_succses_redirect(self):
-        url = reverse("newspaper:topic-update", args=["1"])
+        topic = Topic.objects.first()
+        url = reverse("newspaper:topic-update", args=[str(topic.id)])
         response = self.client.post(path=url, data={"name": "Fuat123"})
         self.assertRedirects(response, reverse("newspaper:topics-list"))
 
     def test_topic_delete_get_succses_redirect(self):
-        url = reverse("newspaper:topic-delete", args=["1"])
+        topic = Topic.objects.first()
+        url = reverse("newspaper:topic-delete", args=[str(topic.id)])
         response = self.client.post(path=url)
         self.assertRedirects(response, reverse("newspaper:topics-list"))
