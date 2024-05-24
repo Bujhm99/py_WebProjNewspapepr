@@ -12,3 +12,6 @@ exclude =
     cur2.py
     cur.py
     templates/old
+    import_data.py
+    export_data.py
+    Used methods.py

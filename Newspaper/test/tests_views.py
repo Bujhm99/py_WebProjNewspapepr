@@ -157,7 +157,9 @@ class TemplateUsedTest(TestCase):
                  )
     def test_templates_used_test(self, order, url, template, arg):
         if arg:
-            response = self.client.get(reverse(url, args=[str(arg.first().id)]))
+            response = self.client.get(
+                reverse(url, args=[str(arg.first().id)])
+            )
         else:
             response = self.client.get(reverse(url))
         self.assertTemplateUsed(response, template)
