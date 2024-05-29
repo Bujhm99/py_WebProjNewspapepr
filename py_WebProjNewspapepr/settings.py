@@ -13,6 +13,8 @@ import os
 import dj_database_url
 from os import getenv
 from pathlib import Path
+
+from django.conf import settings
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
@@ -28,12 +30,7 @@ SECRET_KEY = os.environ.get(
     "django-insecure-8ovil3xu6=eaoqd#-#&ricv159poh5_lgm*)-dfcjqe=yc"
 )
 
-# SECURITY WARNING: don"t run with debug turned on in production!
-
-DEBUG = False
-
-ALLOWED_HOSTS = ["127.0.0.1", "py-webprojnewspapepr.onrender.com"]
-
+load_dotenv(BASE_DIR/".env")
 
 # Application definition
 
@@ -63,6 +60,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "py_WebProjNewspapepr.urls"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+DEBUG = os.environ["DEBUG"] == "False"
+
 
 TEMPLATES = [
     {
@@ -85,7 +85,7 @@ WSGI_APPLICATION = "py_WebProjNewspapepr.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-load_dotenv(BASE_DIR/".env")
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
