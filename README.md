@@ -6,6 +6,17 @@ A small selection of articles about interesting stuff.
 
 You can read the articles in the All Articles section. You can select the topic you are interested in the same section using a search in which a dot is used as a logical and, a comma is used as a logical or, and a minus is used as a logical not.
 
+## Installation
+Python3 must be already installed
+```shell
+git clone https://github.com/Bujhm99/py_WebProjNewspapepr.git
+cd py_WebProjNewspapepr
+python -m venv venv
+python venv/Scripts/activate
+pip install -r requirements.txt
+python manage.py runserver
+```
+
 ## **Acknowledgements**
 
 [Templates fo Django:](https://dev.to/sm0ke/bootstrap-5-free-django-templates-4pi0)
