@@ -22,11 +22,11 @@ You can read the articles in the All Articles section. You can select the topic 
 [Site in render](https://py-webprojnewspapepr.onrender.com)
 
 ## Demo
-![Website interface](Pictures/HomePage.png)
-![Website interface](Pictures/Topics.png)
-![Website interface](Pictures/Redactors.png)
-![Website interface](Pictures/Redactor.png)
-![Website interface](Pictures/Articles.png)
+![Website interface](/pictures/HomePage.png)
+![Website interface](/pictures/Topics.png)
+![Website interface](/pictures/Redactors.png)
+![Website interface](/pictures/Redactor.png)
+![Website interface](/Pictures/Articles.png)
 ![Website interface](Article.jpg)
 
 # Load data
