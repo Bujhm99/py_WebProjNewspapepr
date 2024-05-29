@@ -30,7 +30,7 @@ You can read the articles in the All Articles section. You can select the topic 
 ![Website interface](/pictures/article.jpg)
 
 # Load data
-[json file](db_data.json)
+[json file](data.json)
 
 Use command python manage.py loaddata db_data.json
 Test user:
