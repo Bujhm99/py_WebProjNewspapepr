@@ -27,7 +27,7 @@ You can read the articles in the All Articles section. You can select the topic 
 ![Website interface](/pictures/Redactors.png)
 ![Website interface](redactor.png)
 ![Website interface](/pictures/Articles.png)
-![Website interface](article.png)
+![Website interface](/pictures/article.jpg)
 
 # Load data
 [json file](db_data.json)
