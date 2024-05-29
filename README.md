@@ -25,7 +25,7 @@ You can read the articles in the All Articles section. You can select the topic 
 ![Website interface](pictures/HomePage.png)
 ![Website interface](Pictures/Topics.png)
 ![Website interface](/Pictures/Redactors.png)
-![Website interface](/pictures/Redactor.png)
+![Website interface](Redactor.png)
 ![Website interface](/pictures/Articles.png)
 ![Website interface](/pictures/Article.png)
 
