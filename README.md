@@ -34,11 +34,11 @@ python manage.py runserver
 
 ## Demo
 ![Website interface](/pictures/HomePage.png)
-![Website interface](pictures/Topics.png)
+![Website interface](/pictures/Topics.png)
 ![Website interface](/pictures/Redactors.png)
-![Website interface](redactor.png)
+![Website interface](/pictures/Redactor.png)
 ![Website interface](/pictures/Articles.png)
-![Website interface](/pictures/article.jpg)
+![Website interface](/pictures/Article.png)
 
 # Load data
 [json file](data.json)

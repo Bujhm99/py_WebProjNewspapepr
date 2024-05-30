@@ -61,7 +61,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = "py_WebProjNewspapepr.urls"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
-DEBUG = os.environ["DEBUG"] == "False"
+DEBUG = os.environ["DEBUG"] == "True"
 
 
 TEMPLATES = [
