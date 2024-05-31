@@ -13,9 +13,8 @@ git clone https://github.com/Bujhm99/py_WebProjNewspapepr.git
 cd py_WebProjNewspapepr
 python -m venv venv
 python venv/Scripts/activate
-copy .env.sample .env
+copy .env.sample .env # add your data
 pip install -r requirements.txt
-python manage.py makemigrations
 python manage.py migrate
 python manage.py loaddata data.json
 python manage.py runserver
