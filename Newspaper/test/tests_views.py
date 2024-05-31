@@ -10,18 +10,25 @@ class PublicLoginTest(TestCase):
     @parametrize("url, arg", [("newspaper:topics-list", ""),
                               ("newspaper:articles-list", ""),
                               ("newspaper:redactors-list", ""),
-                              ("newspaper:redactor-detail", "1"),
+                              ("newspaper:redactor-detail",
+                               "1"),
                               ("newspaper:redactor-create", ""),
-                              ("newspaper:redactor-update", "1"),
-                              ("newspaper:redactor-delete", "1"),
+                              ("newspaper:redactor-update",
+                               "1"),
+                              ("newspaper:redactor-delete",
+                               "1"),
                               ("newspaper:article-create", ""),
-                              ("newspaper:article-update", "1"),
-                              ("newspaper:article-delete", "1"),
+                              ("newspaper:article-update",
+                               "1"),
+                              ("newspaper:article-delete",
+                               "1"),
                               ("newspaper:topic-create", ""),
-                              ("newspaper:topic-update", "1"),
-                              ("newspaper:topic-delete", "1")])
+                              ("newspaper:topic-update",
+                              "1"),
+                              ("newspaper:topic-delete",
+                               "1")])
     def test_no_login_required(self, url, arg):
-        res = self.client.get(reverse(url, args=arg))
+        res = self.client.get(reverse(url, args=str(arg)))
         self.assertEqual(res.status_code, 302)
 
     def test_no_login_article_detail(self):
@@ -50,30 +57,46 @@ class PrivateLoginTest(TestCase):
         article.publishers.set([self.user])
         self.client.force_login(self.user)
 
-    @parametrize("url, arg", [("newspaper:index", ""),
-                              ("newspaper:topics-list", ""),
-                              ("newspaper:articles-list", ""),
-                              ("newspaper:redactors-list", ""),
-                              ("newspaper:redactor-detail", "1"),
-                              ("newspaper:redactor-create", ""),
-                              ("newspaper:redactor-update", "1"),
-                              ("newspaper:redactor-delete", "1"),
-                              ("newspaper:article-create", ""),
-                              ("newspaper:article-update", "1"),
-                              ("newspaper:article-delete", "1"),
-                              ("newspaper:topic-create", ""),
-                              ("newspaper:topic-update", "1"),
-                              ("newspaper:topic-delete", "1")])
-    def test_login_required(self, url, arg):
-        res = self.client.get(reverse(url, args=arg))
+        print(topic.pk)
+
+    @parametrize("url, arg", [
+                              ("newspaper:redactor-detail",
+                               get_user_model().objects),
+                              ("newspaper:redactor-update",
+                               get_user_model().objects),
+                              ("newspaper:redactor-delete",
+                               get_user_model().objects),
+                              ("newspaper:article-update",
+                               Article.objects),
+                              ("newspaper:article-delete",
+                               Article.objects),
+                              ("newspaper:topic-update",
+                               Topic.objects),
+                              ("newspaper:topic-delete",
+                               Topic.objects)])
+    def test_login_required_with_args(self, url, arg):
+        res = self.client.get(reverse(url, args=[str(arg.first().id)]))
+        self.assertEqual(res.status_code, 200)
+
+    @parametrize("url", [("newspaper:index"),
+                         ("newspaper:topics-list"),
+                         ("newspaper:articles-list"),
+                         ("newspaper:redactors-list"),
+                         ("newspaper:redactor-create"),
+                         ("newspaper:article-create"),
+                         ("newspaper:topic-create"),
+                         ])
+    def test_login_required_without_args(self, url):
+        res = self.client.get(reverse(url))
         self.assertEqual(res.status_code, 200)
 
     def test_article_detail(self):
         response = self.client.get(reverse("newspaper:articles-list"))
         rand_num = response.context["rand_num"]
+        articl = Article.objects.first().id
         res = self.client.get(
             reverse("newspaper:article-detail",
-                    args=(rand_num, 1))
+                    args=(rand_num, articl))
         )
         self.assertEqual(res.status_code, 200)
 
@@ -102,30 +125,41 @@ class TemplateUsedTest(TestCase):
         )
         article.publishers.set([self.user])
         self.client.force_login(self.user)
+        print(topic.pk)
 
-    @parametrize("url, template, arg",
-                 [("newspaper:index", "newspaper/index.html", ""),
-                  ("newspaper:redactors-list",
+    @parametrize("order, url, template, arg",
+                 [("001", "newspaper:index", "newspaper/index.html", ""),
+                  ("002", "newspaper:redactors-list",
                    "newspaper/redactors_list.html", ""),
-                  ("newspaper:redactor-delete",
-                   "newspaper/redactor_confirm_delete.html", "1"),
-                  ("newspaper:articles-list",
+                  ("003", "newspaper:redactor-delete",
+                   "newspaper/redactor_confirm_delete.html",
+                   get_user_model().objects),
+                  ("004", "newspaper:articles-list",
                    "newspaper/articles_list.html", ""),
-                  ("newspaper:article-create",
+                  ("005", "newspaper:article-create",
                    "newspaper/article_form.html", ""),
-                  ("newspaper:article-update",
-                   "newspaper/article_form.html", "1"),
-                  ("newspaper:article-delete",
-                   "newspaper/article_confirm_delete.html", "1"),
-                  ("newspaper:topics-list",
+                  ("006", "newspaper:article-update",
+                   "newspaper/article_form.html",
+                   Article.objects),
+                  ("007", "newspaper:article-delete",
+                   "newspaper/article_confirm_delete.html",
+                   Article.objects),
+                  ("010", "newspaper:topics-list",
                    "newspaper/topics_list.html", ""),
-                  ("newspaper:topic-create",
+                  ("011", "newspaper:topic-create",
                    "newspaper/topic_form.html", ""),
-                  ("newspaper:topic-update",
-                   "newspaper/topic_form.html", "1"),
-                  ("newspaper:topic-delete",
-                   "newspaper/topic_confirm_delete.html", "1")],
+                  ("008", "newspaper:topic-update",
+                   "newspaper/topic_form.html",
+                   Topic.objects),
+                  ("009", "newspaper:topic-delete",
+                   "newspaper/topic_confirm_delete.html",
+                   Topic.objects)],
                  )
-    def test_templates_used_test(self, url, template, arg):
-        response = self.client.get(reverse(url, args=arg))
+    def test_templates_used_test(self, order, url, template, arg):
+        if arg:
+            response = self.client.get(
+                reverse(url, args=[str(arg.first().id)])
+            )
+        else:
+            response = self.client.get(reverse(url))
         self.assertTemplateUsed(response, template)

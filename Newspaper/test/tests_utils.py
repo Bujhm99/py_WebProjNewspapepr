@@ -95,7 +95,7 @@ class PrivateSearchUtilsTest(TestCase):
             {"relevant_search": self.serch_str}
         )
         self.assertEqual(
-            list(response.context_data["article_list"]),
+            response.context_data["article_list"],
             list(res_return)
         )
         if res_return:

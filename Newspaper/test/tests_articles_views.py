@@ -45,24 +45,28 @@ class PrivateArticleViewTest(TestCase):
                 "title": "TytleTest5",
                 "content": "ContentTest5",
                 "published_date": "2020-10-15",
-                "topic": 1}
+                "topic": Topic.objects.first().id}
         )
         self.assertRedirects(response, reverse("newspaper:articles-list"))
 
     def test_article_update_get_succses_redirect(self):
-        url = reverse("newspaper:article-update", args=["1"])
+        articl = Article.objects.first()
+        url = reverse("newspaper:article-update", args=[str(articl.id)])
+        print("user.id", get_user_model().objects.first().id)
         response = self.client.post(
             path=url,
             data={
                 "title": "TytleTest6",
                 "content": "ContentTest6",
                 "published_date": "2020-10-15",
-                "topic": 2,
-                "publishers": 1}
+                "topic": Topic.objects.first().id,
+                "publishers": get_user_model().objects.first().id
+            }
         )
         self.assertRedirects(response, reverse("newspaper:articles-list"))
 
     def test_article_delete_get_succses_redirect(self):
-        url = reverse("newspaper:article-delete", args=["1"])
+        articl = Article.objects.first()
+        url = reverse("newspaper:article-delete", args=[str(articl.id)])
         response = self.client.post(path=url)
         self.assertRedirects(response, reverse("newspaper:articles-list"))

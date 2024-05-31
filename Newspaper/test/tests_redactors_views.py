@@ -61,6 +61,12 @@ class PrivateRedactorViewTest(TestCase):
         )
 
     def test_redactor_delete_get_succses_redirect(self):
-        path = reverse("newspaper:redactor-delete", args=["5"])
+        user = Redactor.objects.create(
+            username="namewith_i312",
+            first_name="Fordi23",
+            last_name="Hargi23",
+            years_of_experience=13
+        )
+        path = reverse("newspaper:redactor-delete", args=[str(user.id)])
         response = self.client.post(path=path)
         self.assertRedirects(response, reverse("newspaper:redactors-list"))

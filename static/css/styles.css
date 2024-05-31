@@ -92,3 +92,8 @@ left: 20%;
 top: 200px;
 z-index: 99999;
 }
+
+.pagination {
+    position: fixed;
+    bottom: 0px;
+}

@@ -9,8 +9,13 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
+import dj_database_url
+from os import getenv
 from pathlib import Path
+
+from django.conf import settings
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-8ovil3xu6=eaoqd#-#&ricv159poh5_lgm*)-dfcjqe=yc"
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY",
+    "django-insecure-8ovil3xu6=eaoqd#-#&ricv159poh5_lgm*)-dfcjqe=yc"
+)
 
-# SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+load_dotenv(BASE_DIR/".env")
 
 # Application definition
 
@@ -45,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -55,6 +60,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "py_WebProjNewspapepr.urls"
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+DEBUG = os.environ["DEBUG"] == "True"
+
 
 TEMPLATES = [
     {
@@ -80,8 +88,15 @@ WSGI_APPLICATION = "py_WebProjNewspapepr.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": getenv("PGDATABASE"),
+        "USER": getenv("PGUSER"),
+        "PASSWORD": getenv("PGPASSWORD"),
+        "HOST": getenv("PGHOST"),
+        "PORT": getenv("PGPORT", 5432),
+        "OPTIONS": {
+            "sslmode": "require",
+        },
     }
 }
 
